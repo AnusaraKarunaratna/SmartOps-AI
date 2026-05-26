@@ -1,0 +1,14 @@
+target/
+venv/
+.venv/
+env/
+node_modules/
+.idea/
+.vscode/
+*.iml
+*.log
+.DS_Store
+Thumbs.db
+.env
+application-local.properties
+application-dev.properties
