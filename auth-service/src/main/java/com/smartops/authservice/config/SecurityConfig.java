@@ -11,6 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Configuration
 public class SecurityConfig {
 
+    // Password encoder bean used to hash passwords securely (BCrypt is strong & recommended)
     @Bean
     PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -21,12 +22,17 @@ public class SecurityConfig {
             throws Exception {
 
         http
+                // Disable CSRF
                 .csrf(csrf -> csrf.disable())
+
+                 // Define authorization rules for endpoints
                 .authorizeHttpRequests(auth -> auth
+                        // Public endpoints (no authentication required)
                         .requestMatchers(
                                 "/api/auth/register",
                                 "/api/auth/login"
                         ).permitAll()
+                        // All other endpoints require authentication
                         .anyRequest().authenticated()
                 )
                 .httpBasic(Customizer.withDefaults());

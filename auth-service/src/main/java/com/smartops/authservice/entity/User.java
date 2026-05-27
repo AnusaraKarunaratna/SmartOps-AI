@@ -1,19 +1,25 @@
 package com.smartops.authservice.entity;
 
+// To make ORM as Jakarta Persistence also called Java Persistence API(JPA)
 import jakarta.persistence.*;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 
+// Marks this class as a JPA entity mapped to a database table
 @Entity
 @Table(name = "users")
+// Generates default constructor. Required by JPA
 @NoArgsConstructor
+// Generates constructor with all fields
 @AllArgsConstructor
 public class User {
 
+    //Primary key of the table
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    // User details stored in DB
     private String username;
     private String email;
     private String password;
