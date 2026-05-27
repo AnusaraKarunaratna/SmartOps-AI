@@ -7,6 +7,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
+//Global filter for Spring Cloud Gateway that intercepts incoming requests 
+//to validate JWT tokens before forwarding them to microservices.
 @Component
 public class JwtAuthFilter implements GlobalFilter, Ordered {
 
@@ -27,25 +29,31 @@ public class JwtAuthFilter implements GlobalFilter, Ordered {
             return chain.filter(exchange);
         }
 
+        // Extract the Authorization header
         String authHeader = exchange.getRequest()
                 .getHeaders()
                 .getFirst(HttpHeaders.AUTHORIZATION);
 
+        // Validate that the header exists and uses the Bearer schema
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
             exchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);
             return exchange.getResponse().setComplete();
         }
 
+        // Remove "Bearer " prefix to isolate the token string
         String token = authHeader.substring(7);
 
+        // Validate token signature and expiration via JwtUtil
         if (!jwtUtil.validateToken(token)) {
             exchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);
             return exchange.getResponse().setComplete();
         }
 
+        // Extract user identity and roles from the token
         Claims claims = jwtUtil.extractClaims(token);
 
-        // OPTIONAL: pass user info to downstream services
+        // Mutate the request to inject user details into headers, 
+        // allowing downstream services to identify the user without re-parsing the token
         exchange = exchange.mutate()
                 .request(exchange.getRequest()
                         .mutate()
@@ -57,6 +65,8 @@ public class JwtAuthFilter implements GlobalFilter, Ordered {
         return chain.filter(exchange);
     }
 
+    //Define the filter order. A value of -1 ensures this runs before 
+    //most other filters to perform security checks first.
     @Override
     public int getOrder() {
         return -1;
