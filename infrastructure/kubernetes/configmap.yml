@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app-config
+  namespace: smartops
+data:
+  SPRING_PROFILES_ACTIVE: "k8s"
+  SPRING_JPA_HIBERNATE_DDL_AUTO: "validate"
+  LOG_LEVEL: "INFO"
+  
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: kafka-config
+  namespace: smartops
+data:
+  bootstrap-servers: "kafka-broker-0.kafka-broker-headless:9092,kafka-broker-1.kafka-broker-headless:9092,kafka-broker-2.kafka-broker-headless:9092"
+  topics: |
+    inventory-events:3:1
+    order-events:3:1
+    notification-events:3:1

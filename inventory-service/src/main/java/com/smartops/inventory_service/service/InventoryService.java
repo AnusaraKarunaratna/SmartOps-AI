@@ -8,7 +8,7 @@ import com.smartops.inventory_service.repository.InventoryRepository;
 import com.smartops.inventory_service.repository.StockMovementRepository;
 
 import org.springframework.stereotype.Service;
-
+import java.util.*;
 import java.time.LocalDateTime;
 
 @Service
@@ -27,6 +27,18 @@ public class InventoryService {
         this.inventoryRepo = inventoryRepo;
         this.movementRepo = movementRepo;
         this.producer = producer;
+    }
+
+    public Inventory createInventory(Inventory inventory){
+        return inventoryRepo.save(inventory);
+    }
+
+    public List<Inventory> getAllInventory(){
+        return inventoryRepo.findAll();
+    }
+
+    public Inventory getInventoryById(Long id){
+        return inventoryRepo.findById(id).orElseThrow(()-> new RuntimeException("Inventory not found"));
     }
 
     public Inventory updateStock(Long branchId, Long productId, int qty) {
@@ -76,5 +88,9 @@ public class InventoryService {
         }
 
         return saved;
+    }
+
+    public void deleteInventory(Long id){
+        inventoryRepo.deleteById(id);
     }
 }

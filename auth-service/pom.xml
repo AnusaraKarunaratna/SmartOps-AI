@@ -68,6 +68,12 @@
             <scope>runtime</scope>
         </dependency>
 
+        <!-- ACTUATOR for health checks -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+
         <!-- LOMBOK -->
         <dependency>
             <groupId>org.projectlombok</groupId>
