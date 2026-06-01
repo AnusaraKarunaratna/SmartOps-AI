@@ -1,0 +1,451 @@
+{
+  "info": {
+    "name": "SmartOps AI - API Collection",
+    "description": "Complete API collection for SmartOps AI microservices",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Auth Service",
+      "item": [
+        {
+          "name": "Register User",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"john_doe\",\n  \"email\": \"john@example.com\",\n  \"password\": \"SecurePassword123!\",\n  \"role\": \"ADMIN\",\n  \"branchId\": \"1\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8081/api/auth/register",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "api",
+                "auth",
+                "register"
+              ]
+            },
+            "description": "Register a new user in the system"
+          },
+          "response": [
+            {
+              "name": "Success Response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"username\": \"john_doe\",\n  \"email\": \"john@example.com\",\n  \"password\": \"SecurePassword123!\",\n  \"role\": \"ADMIN\",\n  \"branchId\": \"1\"\n}"
+                },
+                "url": {
+                  "raw": "http://localhost:8081/api/auth/register",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8081",
+                  "path": [
+                    "api",
+                    "auth",
+                    "register"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"User registered successfully with ID: 1\""
+            }
+          ]
+        },
+        {
+          "name": "Login User",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:8081/api/auth/login?username=john_doe&password=SecurePassword123!",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "api",
+                "auth",
+                "login"
+              ],
+              "query": [
+                {
+                  "key": "username",
+                  "value": "john_doe"
+                },
+                {
+                  "key": "password",
+                  "value": "SecurePassword123!"
+                }
+              ]
+            },
+            "description": "Login with existing user credentials"
+          },
+          "response": [
+            {
+              "name": "Success Login",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "http://localhost:8081/api/auth/login?username=john_doe&password=SecurePassword123!",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8081",
+                  "path": [
+                    "api",
+                    "auth",
+                    "login"
+                  ],
+                  "query": [
+                    {
+                      "key": "username",
+                      "value": "john_doe"
+                    },
+                    {
+                      "key": "password",
+                      "value": "SecurePassword123!"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"Login successful. JWT Token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...\""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Inventory Service",
+      "item": [
+        {
+          "name": "Create Inventory",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"branchId\": 1,\n  \"productId\": 101,\n  \"quantity\": 50,\n  \"minimumStock\": 10\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8083/api/inventory",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8083",
+              "path": [
+                "api",
+                "inventory"
+              ]
+            },
+            "description": "Create a new inventory record"
+          },
+          "response": [
+            {
+              "name": "Created",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"branchId\": 1,\n  \"productId\": 101,\n  \"quantity\": 50,\n  \"minimumStock\": 10\n}"
+                },
+                "url": {
+                  "raw": "http://localhost:8083/api/inventory",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8083",
+                  "path": [
+                    "api",
+                    "inventory"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 1,\n  \"branchId\": 1,\n  \"productId\": 101,\n  \"quantity\": 50,\n  \"minimumStock\": 10\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get All Inventory",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:8083/api/inventory",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8083",
+              "path": [
+                "api",
+                "inventory"
+              ]
+            },
+            "description": "Retrieve all inventory records"
+          },
+          "response": [
+            {
+              "name": "Success",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "http://localhost:8083/api/inventory",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8083",
+                  "path": [
+                    "api",
+                    "inventory"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": 1,\n    \"branchId\": 1,\n    \"productId\": 101,\n    \"quantity\": 50,\n    \"minimumStock\": 10\n  },\n  {\n    \"id\": 2,\n    \"branchId\": 2,\n    \"productId\": 102,\n    \"quantity\": 75,\n    \"minimumStock\": 15\n  }\n]"
+            }
+          ]
+        },
+        {
+          "name": "Get Inventory By ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:8083/api/inventory/1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8083",
+              "path": [
+                "api",
+                "inventory",
+                "1"
+              ]
+            },
+            "description": "Retrieve a specific inventory record by ID"
+          },
+          "response": [
+            {
+              "name": "Found",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "http://localhost:8083/api/inventory/1",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8083",
+                  "path": [
+                    "api",
+                    "inventory",
+                    "1"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 1,\n  \"branchId\": 1,\n  \"productId\": 101,\n  \"quantity\": 50,\n  \"minimumStock\": 10\n}"
+            }
+          ]
+        },
+        {
+          "name": "Update Inventory Stock",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:8083/api/inventory/update?branchId=1&productId=101&qty=15",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8083",
+              "path": [
+                "api",
+                "inventory",
+                "update"
+              ],
+              "query": [
+                {
+                  "key": "branchId",
+                  "value": "1"
+                },
+                {
+                  "key": "productId",
+                  "value": "101"
+                },
+                {
+                  "key": "qty",
+                  "value": "15"
+                }
+              ]
+            },
+            "description": "Update the stock quantity for a product in a specific branch"
+          },
+          "response": [
+            {
+              "name": "Updated",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "http://localhost:8083/api/inventory/update?branchId=1&productId=101&qty=15",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "8083",
+                  "path": [
+                    "api",
+                    "inventory",
+                    "update"
+                  ],
+                  "query": [
+                    {
+                      "key": "branchId",
+                      "value": "1"
+                    },
+                    {
+                      "key": "productId",
+                      "value": "101"
+                    },
+                    {
+                      "key": "qty",
+                      "value": "15"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 1,\n  \"branchId\": 1,\n  \"productId\": 101,\n  \"quantity\": 65,\n  \"minimumStock\": 10\n}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

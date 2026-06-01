@@ -6,22 +6,29 @@ spring:
   application:
     name: inventory-service
 
+  # Database connectivity for Docker environment
   datasource:
     url: jdbc:postgresql://postgres:5432/inventory_db
     username: postgres
     password: postgres
     driver-class-name: org.postgresql.Driver
 
-  jpa:
-    hibernate:
-      ddl-auto: update
-    show-sql: false
-
+  # Kafka Configuration
   kafka:
     bootstrap-servers: kafka:9092
     producer:
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
     consumer:
+      group-id: inventory-group
       value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
-      properties:
-        spring.json.trusted.packages: "*"
+
+  # JPA and Hibernate ORM settings
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect

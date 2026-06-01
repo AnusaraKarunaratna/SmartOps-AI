@@ -1,0 +1,16 @@
+# Notification Service - Docker Configuration
+server:
+  port: 8084
+
+spring:
+  application:
+    name: notification-service
+
+  # Kafka Configuration for Docker environment
+  kafka:
+    bootstrap-servers: kafka:9092
+    consumer:
+      group-id: notification-group
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+    producer:
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
