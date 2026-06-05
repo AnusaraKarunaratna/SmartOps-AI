@@ -1,0 +1,29 @@
+# Git
+.git
+.gitignore
+.gitattributes
+
+# Maven
+target/
+.mvn/wrapper/maven-wrapper.jar
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Build artifacts
+*.jar
+*.war
+*.ear
+
+# Documentation
+README.md
+HELP.md
+
+# Misc
+.env
+.env.local
