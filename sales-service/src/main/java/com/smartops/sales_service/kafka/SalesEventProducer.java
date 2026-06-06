@@ -1,27 +1,20 @@
 package com.smartops.sales_service.kafka;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
-import java.util.Optional;
 
 @Slf4j
 @Service
+@RequiredArgsConstructor
 public class SalesEventProducer {
 
-    private final Optional<KafkaTemplate<String, Object>> kafkaTemplate;
-
-    public SalesEventProducer(Optional<KafkaTemplate<String, Object>> kafkaTemplate) {
-        this.kafkaTemplate = kafkaTemplate;
-    }
+    private final KafkaTemplate<String, Object> kafkaTemplate;
 
     public void publishSaleCreated(SaleEvent event) {
-        if (kafkaTemplate.isPresent()) {
-            kafkaTemplate.get().send("SALE_CREATED", event);
-            log.info("Published sale event to Kafka: {}", event);
-        } else {
-            log.warn("Kafka not available, skipping event publishing for sale: {}", event.getSaleId());
-        }
+        kafkaTemplate.send("SALE_CREATED", event);
+        log.info("Published sale event to Kafka: saleId={}, branchId={}, total={}",
+                event.getSaleId(), event.getBranchId(), event.getTotalAmount());
     }
-
 }

@@ -6,23 +6,23 @@ spring:
   application:
     name: sales-service
 
-  # Database connectivity for Docker environment
   datasource:
     url: jdbc:postgresql://postgres:5432/sales_db
     username: postgres
     password: postgres
     driver-class-name: org.postgresql.Driver
 
-  # Kafka Configuration
   kafka:
     bootstrap-servers: kafka:9092
     producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      properties:
+        spring.json.add.type.headers: false
     consumer:
       group-id: sales-group
       value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
 
-  # JPA and Hibernate ORM settings
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
