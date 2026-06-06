@@ -3,8 +3,7 @@
 .gitignore
 .gitattributes
 
-# Maven
-target/
+# Maven wrapper jar (keep the wrapper script and plugin jar)
 .mvn/wrapper/maven-wrapper.jar
 
 # IDE
@@ -15,8 +14,8 @@ target/
 *~
 .DS_Store
 
-# Build artifacts
-*.jar
+# Build artifacts (target will be built in docker)
+target/
 *.war
 *.ear
 
