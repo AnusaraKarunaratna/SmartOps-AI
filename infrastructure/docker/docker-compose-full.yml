@@ -72,11 +72,11 @@ services:
     volumes:
       - kafka_data:/var/lib/kafka/data
     healthcheck:
-      test: ["CMD", "bash", "-c", "ps aux | grep 'kafka.Kafka' | grep -v grep >/dev/null 2>&1 || exit 1"]
+      test: ["CMD-SHELL", "kafka-broker-api-versions --bootstrap-server localhost:9092 > /dev/null 2>&1"]
       interval: 10s
-      timeout: 5s
-      retries: 5
-      start_period: 30s
+      timeout: 10s
+      retries: 10
+      start_period: 40s
     networks:
       - smartops-network
 
@@ -85,7 +85,8 @@ services:
     image: provectuslabs/kafka-ui:latest
     container_name: smartops-kafka-ui
     depends_on:
-      - kafka
+      kafka:
+        condition: service_healthy
     ports:
       - "8080:8080"
     environment:
@@ -179,10 +180,18 @@ services:
       dockerfile: Dockerfile
     container_name: smartops-notification
     depends_on:
+      postgres:
+        condition: service_healthy
       kafka:
         condition: service_healthy
     environment:
       SPRING_PROFILES_ACTIVE: docker
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/notification_db
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres
+      SPRING_DATASOURCE_DRIVER_CLASS_NAME: org.postgresql.Driver
+      SPRING_JPA_DATABASE_PLATFORM: org.hibernate.dialect.PostgreSQLDialect
+      SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT: org.hibernate.dialect.PostgreSQLDialect
       SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:9092
     ports:
       - "8084:8084"
@@ -234,7 +243,7 @@ services:
       postgres:
         condition: service_healthy
       kafka:
-        condition: service_healthy 
+        condition: service_healthy
     environment:
       SPRING_PROFILES_ACTIVE: docker
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/analytics_db

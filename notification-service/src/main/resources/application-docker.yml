@@ -1,4 +1,4 @@
-# Notification Service - Docker Configuration
+# application-docker.yml
 server:
   port: 8084
 
@@ -6,7 +6,19 @@ spring:
   application:
     name: notification-service
 
-  # Kafka Configuration for Docker environment
+  datasource:
+    url: jdbc:postgresql://postgres:5432/notification_db   # ← use your actual DB service name & db name
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
   kafka:
     bootstrap-servers: kafka:9092
     consumer:
